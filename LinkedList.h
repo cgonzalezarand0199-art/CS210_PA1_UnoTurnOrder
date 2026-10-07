@@ -51,13 +51,45 @@ public:
     }
 
     //----------------New----------------
-    void addAnyWhere(int position, T* value) override;
-    void deleteAnyWhere(int position) override;
-    void reverse() override;
-    void concat(List<T>* other) override;
+    void addAnyWhere(int position, T* value) override {
+        if (position < 0) {
+            std::cout << "Position out of bounds." << std::endl;
+            return;
+        }
+        if (position == 0) {
+            Node<T>* fresh = new Node<T>(value);
+            fresh->next = head_;
+            head_ = fresh;
+            return;
+        }
+        Node<T>* current = head_;
+        for (int i = 0; i < position - 1; ++i) {
+            if (current == nullptr) {
+                std::cout << "Position out of bounds." << std::endl;
+                return;
+            }
+            current = current->next;
+        }
+        if (current == nullptr) {
+            std::cout << "Position out of bounds." << std::endl;
+            return;
+        }
+        Node<T>* fresh = new Node<T>(value);
+        fresh->next = current->next;
+        current->next = fresh;
+    }
+    /*void deleteAnyWhere(int position) override {
+
+    }
+    void reverse() override {
+
+    }
+    void concat(List<T>* other) override {
+
+    }
+    */
     //----------------End----------------
 private:
     Node<T>* head_;
 
 };
-// Delete at the end

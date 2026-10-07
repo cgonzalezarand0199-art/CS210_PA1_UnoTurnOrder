@@ -69,7 +69,9 @@ public:
         data_[position] = value;
         ++size_;
     }
-    void deleteAnyWhere(int position) override {
+
+
+     void deleteAnyWhere(int position) override {
 
     }
 
@@ -79,6 +81,7 @@ public:
     void concat(List<T>* other) override {
 
     }
+
     //----------------End----------------
 private:
     static const int CAPACITY = 20;
