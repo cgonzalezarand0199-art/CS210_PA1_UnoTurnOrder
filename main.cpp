@@ -45,6 +45,21 @@ int main() {
     std::cout <<"Someone runs out of cards: " << std::endl;
     Table1->deleteAnyWhere(1);
     Table1->print();
-    
+    std::cout <<"Second Table merges with table 1: " << std::endl;
+    std::unique_ptr<List<Player>> Table2 = makeList<Player>();
+    Table2->addFront(new Player(6,"Omar"));
+    Table2->addFront(new Player(5,"Alexa"));
+
+    std::cout <<"Before merge: " << std::endl;
+    std::cout <<"Table 1: " << std::endl;
+    Table1->print();
+    std::cout <<"Table 2: " << std::endl;
+    Table2->print();
+
+    Table1->concat(Table2.get());
+    std::cout <<"After merge: " << std::endl;
+    Table1->print();
+    Table2->print();
+
     return 0;
 }
