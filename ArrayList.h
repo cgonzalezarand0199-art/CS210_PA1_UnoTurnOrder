@@ -102,22 +102,21 @@ public:
         }
         ArrayList<T>* otherArray = dynamic_cast<ArrayList<T>* >(other);
         if (otherArray == nullptr) {
-            if (size_ + otherArray->size_ > CAPACITY) {
-                std::cout << "Mismatched." << std::endl;
-                return;
-            }
-            if (size_ + otherArray->size_ < CAPACITY) {
-                std::cout << "ArrayList is full." << std::endl;
-                return;
-            }
-
-            for (int i = 0; i < otherArray->size_; ++i) {
-                data_[size_] = otherArray->data_[i];
-                ++size_;
-            }
-            otherArray->size_ = 0;
+            std::cout << "Mismatched." << std::endl;
+            return;
         }
+        if (size_ + otherArray->size_ > CAPACITY) {
+            std::cout << "ArrayList is full." << std::endl;
+            return;
+        }
+
+        for (int i = 0; i < otherArray->size_; ++i) {
+            data_[size_] = otherArray->data_[i];
+            ++size_;
+        }
+        otherArray->size_ = 0;
     }
+
     //----------------End----------------
 private:
     static const int CAPACITY = 20;

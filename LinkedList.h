@@ -62,6 +62,7 @@ public:
             Node<T>* fresh = new Node<T>(value);
             fresh->next = head_;
             head_ = fresh;
+            size_++;
             return;
         }
         Node<T>* current = head_;
@@ -82,6 +83,10 @@ public:
         ++size_;
     }
     void deleteAnyWhere(int position) override {
+        if (position < 0 || position >= size_) {
+            std::cout << "Position out of bounds." << std::endl;
+            return;
+        }
         if (position == 0) {
             deleteFront();
             return;
