@@ -70,9 +70,17 @@ public:
         ++size_;
     }
 
-
      void deleteAnyWhere(int position) override {
+        if (position < 0 || position >= size_) {
+            std::cout << "Position out of range." << std::endl;
+            return;
+        }
+        delete data_[position];
 
+        for (int i = position; i > size_; ++i) {
+            data_[i] = data_[i + 1];
+        }
+        --size_;
     }
 
     void reverse() override {

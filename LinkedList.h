@@ -9,11 +9,12 @@
 template <typename T>
 class LinkedList : public List<T> {
 public:
-    LinkedList() : head_(nullptr) {}
+    LinkedList() : head_(nullptr), size_(0) {}
     void addFront(T* value) override {
         Node<T>* fresh = new Node<T>(value);
         fresh->next = head_;
         head_ = fresh;
+        size_++;
     }
     void deleteFront() override {
         if (head_ == nullptr) {
@@ -24,6 +25,7 @@ public:
         head_ = head_->next;
         delete doomed->data;
         delete doomed;
+        size_--;
     }
     bool search(T* value) const override {
         Node<T>* current = head_;
@@ -77,9 +79,24 @@ public:
         Node<T>* fresh = new Node<T>(value);
         fresh->next = current->next;
         current->next = fresh;
+        ++size_;
     }
-    /*void deleteAnyWhere(int position) override {
+    void deleteAnyWhere(int position) override {
+        if (position == 0) {
+            deleteFront();
+            return;
+        }
+        Node<T>* current = head_;
+        for (int i = 0; i < position - 1; ++i) {
+            current = current->next;
+        }
 
+        Node<T>* doomed = current->next;
+        current->next = doomed->next;
+
+        delete doomed->data;
+        delete doomed;
+        --size_;
     }
     void reverse() override {
 
@@ -87,9 +104,9 @@ public:
     void concat(List<T>* other) override {
 
     }
-    */
+
     //----------------End----------------
 private:
     Node<T>* head_;
-
+    int size_;
 };
