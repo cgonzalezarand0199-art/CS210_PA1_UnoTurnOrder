@@ -3,6 +3,8 @@
 //
 #pragma once
 #include <iostream>
+
+#include "LinkedList.h"
 #include "List.h"
 
 template <typename T>
@@ -77,19 +79,45 @@ public:
         }
         delete data_[position];
 
-        for (int i = position; i > size_; ++i) {
+        for (int i = position; i < size_ - 1; ++i) {
             data_[i] = data_[i + 1];
         }
         --size_;
     }
 
     void reverse() override {
+        if (size_ <= 1) {
+            return;
+        }
 
+        for (int i = 0; i < size_ / 2; ++i) {
+            T* temp = data_[i];
+            data_[i] = data_[size_ - 1 - i];
+            data_[size_ - 1 - i] = temp;
+        }
     }
     void concat(List<T>* other) override {
+        if (other == nullptr) {
+            return;
+        }
+        ArrayList<T>* otherArray = dynamic_cast<ArrayList<T>* >(other);
+        if (otherArray == nullptr) {
+            if (size_ + otherArray->size_ > CAPACITY) {
+                std::cout << "Mismatched." << std::endl;
+                return;
+            }
+            if (size_ + otherArray->size_ < CAPACITY) {
+                std::cout << "ArrayList is full." << std::endl;
+                return;
+            }
 
+            for (int i = 0; i < otherArray->size_; ++i) {
+                data_[size_] = otherArray->data_[i];
+                ++size_;
+            }
+            otherArray->size_ = 0;
+        }
     }
-
     //----------------End----------------
 private:
     static const int CAPACITY = 20;

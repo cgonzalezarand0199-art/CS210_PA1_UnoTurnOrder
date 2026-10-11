@@ -99,12 +99,46 @@ public:
         --size_;
     }
     void reverse() override {
+        if (head_ == nullptr || head_->next == nullptr) {
+            return;
+        }
+        Node<T>* previous = nullptr;
+        Node<T>* current = head_;
+        Node<T>* nextNode = nullptr;
 
+        while (current != nullptr) {
+            nextNode = current->next;
+            current->next = previous;
+            previous = current;
+            current = nextNode;
+        }
+        head_ = previous;
     }
     void concat(List<T>* other) override {
-
+        if (other == nullptr) {
+            return;
+        }
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+        if (otherList == nullptr) {
+            std::cout << "Mismatched." << std::endl;
+            return;
+        }
+        if (otherList->head_ == nullptr) {
+            return;
+        }
+        if (head_ == nullptr) {
+            head_ = otherList->head_;
+        } else {
+            Node<T>* current = head_;
+            while (current -> next != nullptr) {
+                current = current->next;
+            }
+                current->next = otherList->head_;
+        }
+        size_ += otherList->size_;
+        otherList->head_ = nullptr;
+        otherList->size_ = 0;
     }
-
     //----------------End----------------
 private:
     Node<T>* head_;
