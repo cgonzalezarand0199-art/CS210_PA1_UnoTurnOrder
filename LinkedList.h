@@ -11,7 +11,7 @@ class LinkedList : public List<T> {
 public:
     LinkedList() : head_(nullptr), size_(0) {}
     void addFront(T* value) override {
-        Node<T>* fresh = new Node<T>(value);
+        auto* fresh = new Node<T>(value);
         fresh->next = head_;
         head_ = fresh;
         size_++;
@@ -59,7 +59,7 @@ public:
             return;
         }
         if (position == 0) {
-            Node<T>* fresh = new Node<T>(value);
+             auto* fresh = new Node<T>(value);
             fresh->next = head_;
             head_ = fresh;
             size_++;
@@ -77,7 +77,7 @@ public:
             std::cout << "Position out of bounds." << std::endl;
             return;
         }
-        Node<T>* fresh = new Node<T>(value);
+         auto* fresh = new Node<T>(value);
         fresh->next = current->next;
         current->next = fresh;
         ++size_;
@@ -123,7 +123,7 @@ public:
         if (other == nullptr) {
             return;
         }
-        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+         auto* otherList = dynamic_cast<LinkedList<T>* >(other);
         if (otherList == nullptr) {
             std::cout << "Mismatched." << std::endl;
             return;

@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <ostream>
 #include <string>
+
 class Player {
 public:
     Player(int id, const std::string& name)

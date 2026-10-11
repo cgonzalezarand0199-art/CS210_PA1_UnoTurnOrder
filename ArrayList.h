@@ -3,14 +3,12 @@
 //
 #pragma once
 #include <iostream>
-
-#include "LinkedList.h"
 #include "List.h"
 
 template <typename T>
 class ArrayList : public List<T> {
 public:
-    ArrayList(): size_(0) {
+    ArrayList(): data_{}, size_(0) {
     }
 
     void addFront(T* value) override {
@@ -100,7 +98,7 @@ public:
         if (other == nullptr) {
             return;
         }
-        ArrayList<T>* otherArray = dynamic_cast<ArrayList<T>* >(other);
+         auto* otherArray = dynamic_cast<ArrayList<T>* >(other);
         if (otherArray == nullptr) {
             std::cout << "Mismatched." << std::endl;
             return;
@@ -119,7 +117,7 @@ public:
 
     //----------------End----------------
 private:
-    static const int CAPACITY = 20;
+    static constexpr int CAPACITY = 20;
     T* data_[CAPACITY];
     int size_;
 };
